@@ -66,7 +66,7 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::prefix("/todo")->group(function () {
         Route::get('/', [TodoController::class, "index"]);
         Route::post('/', [TodoController::class, "store"]);
-        Route::post('/{id}', [TodoController::class, "update"]);
+        Route::put('/{id}', [TodoController::class, "update"]);
         Route::delete('/{id}', [TodoController::class, "destroy"]);
     });
 });
