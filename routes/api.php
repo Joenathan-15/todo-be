@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,11 +55,18 @@ Route::middleware("guest")->group(function () {
 
 
 // Handle Authenticated User Request
-Route::middleware("auth:sanctum")->group(function(){
+Route::middleware("auth:sanctum")->group(function () {
 
     // Get User Data
     Route::get('/user', function (Request $request) {
         return $request->user()->only("username", "email");
     });
 
+    // Todo Interaction
+    Route::prefix("/todo")->group(function () {
+        Route::get('/', [TodoController::class, "index"]);
+        Route::post('/', [TodoController::class, "store"]);
+        Route::post('/{id}', [TodoController::class, "update"]);
+        Route::delete('/{id}', [TodoController::class, "destroy"]);
+    });
 });
